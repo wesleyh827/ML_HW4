@@ -10,7 +10,7 @@ from tqdm import tqdm
 import cv2
 
 def basic_preprocess(image):
-    # 與train.py中完全相同的基礎預處理
+    # use the preprocessing method in train
     image = cv2.fastNlMeansDenoising(image)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     image = clahe.apply(image)
@@ -34,7 +34,6 @@ class EmotionDataset(Dataset):
         img_path = self.image_paths[idx]
         image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
         
-        # 應用基礎預處理
         image = basic_preprocess(image)
         
         if self.transform:
